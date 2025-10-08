@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "npm run start --prefix backend" 
+    "install:backend": "npm install --no-audit --no-fund --prefix backend",
+    "install:frontend": "npm install --no-audit --no-fund --include=dev --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build": "npm run install:backend && npm run install:frontend && npm run build:frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   },
   "repository": {
     "type": "git",

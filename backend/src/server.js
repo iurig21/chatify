@@ -3,13 +3,9 @@ import "dotenv/config";
 import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
-// Derive the directory of this file (ESM safe) instead of using path.resolve(),
-// so relative joins to the frontend build are correct both locally and on Render.
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.resolve();
 
 app.use(express.json());
 
@@ -19,11 +15,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  const distPath = path.join(__dirname, "../../frontend/dist");
-  app.use(express.static(distPath));
+  app.use(express.static(path.join(__dirname, "frontend/dist")));
 
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(distPath, "index.html"));
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
   });
 }
 
