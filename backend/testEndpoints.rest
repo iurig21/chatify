@@ -1,0 +1,10 @@
+### /api/auth/signup endpoint - Register a new user
+
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+    "fullName": "John Doe",
+    "email": "johndoe@gmail.com",
+    "password": "lameira15"
+}
