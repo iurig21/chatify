@@ -8,3 +8,19 @@ Content-Type: application/json
     "email": "a32192@alunos.ipca.pt",
     "password": "lameira15"
 }
+
+### /api/auth/login - Login an existing user
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "johndoe@gmail.com",
+    "password": "lameira15"
+}
+
+### /api/auth/logout - Logout a user
+
+POST http://localhost:3000/api/auth/logout
+
+
