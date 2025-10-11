@@ -1,7 +1,7 @@
 {
   "name": "chatify",
   "version": "1.0.0",
-  "description": "",
+  "description": "MERN Full-Stack Chat App",
   "main": "index.js",
   "scripts": {
     "install:backend": "npm install --no-audit --no-fund --prefix backend",
