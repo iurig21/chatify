@@ -5,6 +5,7 @@ import messageRoutes from "./routes/messageRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./lib/db.js";
+import cookieParser from 'cookie-parser'
 
 const app = express();
 
@@ -13,6 +14,7 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "../..");
 
 app.use(express.json());
+app.use(cookieParser())
 
 const PORT = process.env.PORT ?? 3000;
 
