@@ -28,3 +28,7 @@ POST http://localhost:3000/api/auth/logout
 GET http://localhost:3000/api/auth/check
 
 
+### /api/messages/contacts - Fetch contacts
+
+GET http://localhost:3000/api/messages/contacts
+

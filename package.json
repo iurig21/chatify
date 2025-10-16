@@ -23,9 +23,5 @@
   "bugs": {
     "url": "https://github.com/iurig21/chatify/issues"
   },
-  "homepage": "https://github.com/iurig21/chatify#readme",
-  "dependencies": {
-    "@arcjet/inspect": "^1.0.0-beta.13",
-    "@arcjet/node": "^1.0.0-beta.13"
-  }
+  "homepage": "https://github.com/iurig21/chatify#readme"
 }

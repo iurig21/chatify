@@ -9,6 +9,7 @@ export const sendWelcomeEmail = async (email, name, clientURL) => {
     html: createWelcomeEmailTemplate(name, clientURL),
   });
 
+
   if (error) {
     console.error("Error sending welcome email:", error);
     throw new Error("Failed to send welcome email");
