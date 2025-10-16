@@ -32,3 +32,17 @@ GET http://localhost:3000/api/auth/check
 
 GET http://localhost:3000/api/messages/contacts
 
+
+### /api/messages/send/:id - Send a message
+
+POST http://localhost:3000/api/messages/send/68e8c58aed5d198066ff0433
+Content-Type: application/json
+
+{
+    "text": "Como tas mano?"
+}
+
+### /api/messages/:id - Get Messages by user id
+
+GET http://localhost:3000/api/messages/68e8c58aed5d198066ff0433
+
