@@ -4,9 +4,9 @@ POST http://localhost:3000/api/auth/signup
 Content-Type: application/json
 
 {
-    "fullName": "Iuri Goncalves",
-    "email": "a32192@alunos.ipca.pt",
-    "password": "lameira15"
+    "fullName": "John Doe",
+    "email": "johndoe@gmail.com",
+    "password": "1234567"
 }
 
 ### /api/auth/login - Login an existing user
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
     "email": "johndoe@gmail.com",
-    "password": "lameira15"
+    "password": "1234567"
 }
 
 ### /api/auth/logout - Logout a user
@@ -39,10 +39,14 @@ POST http://localhost:3000/api/messages/send/68e8c58aed5d198066ff0433
 Content-Type: application/json
 
 {
-    "text": "Como tas mano?"
+    "text": "teste"
 }
 
 ### /api/messages/:id - Get Messages by user id
 
 GET http://localhost:3000/api/messages/68e8c58aed5d198066ff0433
+
+### /api/messages/chats - Fetch a user's chats
+
+GET http://localhost:3000/api/messages/chats
 

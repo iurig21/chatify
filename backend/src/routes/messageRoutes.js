@@ -1,13 +1,16 @@
 import express from 'express'
 import { protectRoute } from '../middleware/authMiddleware.js';
-import {getAllContacts,getMessagesByUserID,sendMessage} from '../controllers/messageControllers.js'
+import {getAllContacts,getMessagesByUserID,sendMessage,getChatPartners} from '../controllers/messageControllers.js'
+import { arcjetProtection } from '../middleware/arcjetMiddleware.js';
 
 const router = express.Router()
 
-router.use(protectRoute)
+
+// The middlewares are executed in order
+router.use(arcjetProtection,protectRoute)
 
 router.get("/contacts", getAllContacts );
-//router.get("/chats", getChatPartners );
+router.get("/chats", getChatPartners );
 router.get("/:id", getMessagesByUserID );
 router.post("/send/:id", sendMessage );
 
