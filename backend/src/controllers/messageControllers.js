@@ -42,17 +42,25 @@ export const sendMessage = async (req, res) => {
     const senderId = req.user._id;
 
     const { text, image } = req.body;
+    const { id: receiverId } = req.params;
 
-    if (!text.trim() && !img.trim()) {
+    if (!text.trim() && !image.trim()) {
       return res.status(400).json({ message: "Text or image is required" });
     }
+    if(receiverId.toString() === senderId.toString()){
+        return res.status(400).json({message: "Cannot send a message to yourself"})
+    }
 
-    const { id: receiverId } = req.params;
+    const receiverExists = await User.findById(receiverId)
+
+    if(!receiverExists){
+      return res.status(404).json({message: "Reciever not found"})
+    }
 
     let imageURL;
 
     if (image) {
-      const uploadImage = await cloudinary.uploader.upload(img);
+      const uploadImage = await cloudinary.uploader.upload(image);
       imageURL = uploadImage.secure_url;
     }
 
@@ -77,19 +85,26 @@ export const getChatPartners = async (req, res) => {
     const loggedInUserId = req.user._id;
 
     const messages = await Message.find({
-      $or: [
-        {senderId: loggedInUserId},
-        {receiverId: loggedInUserId}
-      ]
-    })
+      $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }],
+    });
 
-      const chatPartnersIds =[... new Set(messages.map((msg) => msg.senderId.toString() === loggedInUserId.toString() ? msg.receiverId.toString() : msg.senderId.toString()))]
+    const chatPartnersIds = [
+      ...new Set(
+        messages.map((msg) =>
+          msg.senderId.toString() === loggedInUserId.toString()
+            ? msg.receiverId.toString()
+            : msg.senderId.toString()
+        )
+      ),
+    ];
 
-      const chatPartners = await User.find({_id : {$in: chatPartnersIds}}).select("-password") 
+    const chatPartners = await User.find({
+      _id: { $in: chatPartnersIds },
+    }).select("-password");
 
-      res.status(200).json(chatPartners)
+    res.status(200).json(chatPartners);
   } catch (error) {
-    console.error("/api/messages/chats endpoint failed:",error)
-    res.status(500).json({message: "Internal server error"})
+    console.error("/api/messages/chats endpoint failed:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

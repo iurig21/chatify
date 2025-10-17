@@ -35,11 +35,11 @@ GET http://localhost:3000/api/messages/contacts
 
 ### /api/messages/send/:id - Send a message
 
-POST http://localhost:3000/api/messages/send/68e8c58aed5d198066ff0433
+POST http://localhost:3000/api/messages/send/68e8c7c5d93b36a41a03431
 Content-Type: application/json
 
 {
-    "text": "teste"
+    "text": "Eu mesmo"
 }
 
 ### /api/messages/:id - Get Messages by user id
