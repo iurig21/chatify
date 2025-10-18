@@ -1,8 +1,8 @@
 import "./index.css";
-import ChatPage from "./pages/ChatPage";
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPAGE";
-import { Routes, Route } from "react-router";
+import ChatPage from "./pages/ChatPage.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import { Routes, Route } from "react-router"; 
 
 function App() {
   return (
