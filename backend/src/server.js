@@ -5,7 +5,8 @@ import messageRoutes from "./routes/messageRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./lib/db.js";
-import cookieParser from 'cookie-parser'
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 
@@ -14,7 +15,13 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "../..");
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -37,6 +44,6 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.error("Error conecting to mongodb",err)
-    process.exit(1)
+    console.error("Error conecting to mongodb", err);
+    process.exit(1);
   });
