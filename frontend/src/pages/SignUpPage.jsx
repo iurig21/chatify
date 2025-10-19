@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
 import { useAuthStore } from "../store/useAuthStore";
 import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
-import { MessageCircleIcon, UserIcon, Mail, Lock } from "lucide-react";
+import { MessageCircleIcon, UserIcon, Mail, Lock,Eye,EyeOff} from "lucide-react";
 import { Loader } from "lucide-react";
 import { Link } from "react-router";
+import { useState } from "react";
 
 function SignUpPage() {
   const { register, handleSubmit } = useForm();
+
+    const [showPassword, setShowPassword] = useState(false);
 
   const { signup, isSigningUp } = useAuthStore();
 
@@ -17,7 +20,7 @@ function SignUpPage() {
   return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
       <div className="relative w-full max-w-5xl md:h-[675px] h-[650px]">
-        <BorderAnimatedContainer> 
+        <BorderAnimatedContainer>
           <div className="w-full flex flex-col md:flex-row">
             <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30">
               <div className="w-full max-w-md">
@@ -59,11 +62,18 @@ function SignUpPage() {
                     <div className="relative">
                       <Lock className="auth-input-icon" />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         {...register("password")}
                         className="input"
                         placeholder="**********"
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="cursor-pointer absolute left-102 top-1/2 -translate-y-1/2 text-slate-400 size-5"
+                      >
+                        {!showPassword ? <Eye /> : <EyeOff />}
+                      </button>
                     </div>
                   </div>
                   <button
