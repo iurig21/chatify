@@ -7,6 +7,7 @@
   syntax: "<angle>";
 }
 
+
 @keyframes border-spin {
   to {
     --border-angle: 360deg;
