@@ -81,7 +81,7 @@ export const useAuthStore = create((set) => ({
 
         } catch (err) {
             console.error("Error updating profile pic:",err);
-            toast.error(err.response.data.message)
+            toast.error(err?.response?.data?.message ?? "Error updating profile pic")
         }finally{
             set({isUpdatingProfile: false})
         }
