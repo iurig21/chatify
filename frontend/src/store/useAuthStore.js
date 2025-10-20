@@ -7,6 +7,7 @@ export const useAuthStore = create((set) => ({
     isCheckingAuth: true,
     isSigningUp: false,
     isLoggingUp: false,
+    isUpdatingProfile: false,
 
 
     checkAuth: async () => {
@@ -67,6 +68,22 @@ export const useAuthStore = create((set) => ({
         } catch (error) {
             console.error("Error logging out",error)
             toast.error(error.response.data.message)
+        }
+    },
+
+    updateProfile : async (data) => {
+        try {
+            set({isUpdatingProfile: true})
+            const res = await api.put("/auth/update-profile",data);
+        
+            set({authUser: res.data})
+            toast.success("Profile pic updated succesfully!");
+
+        } catch (err) {
+            console.error("Error updating profile pic:",err);
+            toast.error(err.response.data.message)
+        }finally{
+            set({isUpdatingProfile: false})
         }
     }
 

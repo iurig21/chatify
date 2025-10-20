@@ -10,10 +10,10 @@ import NoChatPlaceholder from "../components/NoChatPlaceholder.jsx"
 function ChatPage() {
   const { activeTab,selectedUser } = useChatStore();
 
-  return (
+  return (  
     <div className="relative w-full max-w-5xl md:h-[675px] h-[650px]">
       <BorderAnimatedContainer>
-        <div className="w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col">
+        <div className="w-80 bg-slate-800/50 backdrop-blur-sm space-y-3">
           <ProfileHeader />
           <ActiveTabSwitch />
           <div className="flex-1 overflow-y-auto p-4 space-y-2">

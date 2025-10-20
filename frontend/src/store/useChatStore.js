@@ -27,7 +27,7 @@ export const useChatStore = create((set, get) => ({
 
   getAllContacts: async () => {
     try {
-      set({ isUsersLoadingg: true });
+      set({ isUsersLoading: true });
       const res = await api.get("/messages/contacts");
 
       set({ allContacts: res.data });
