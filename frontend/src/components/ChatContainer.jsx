@@ -1,30 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAuthStore } from "../store/useAuthStore.js";
 import { useChatStore } from "../store/useChatStore.js";
 import NoConversationPlaceholder from "./NoChatPlaceholder.jsx";
 import NoChatHistoryPlaceholder from "./NoChatHistoryPlaceholder.jsx";
 import ChatHeader from "./ChatHeader.jsx";
-import MessageInput from "./MessageInput.jsx"
-import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton.jsx"
+import MessageInput from "./MessageInput.jsx";
+import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton.jsx";
 
 function ChatContainer() {
-  const { selectedUser, getMessagesByUserId, messages,isMessagesLoading } = useChatStore();
+  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } =
+    useChatStore();
   const { authUser } = useAuthStore();
+  const messagesEndRef = useRef(null);
 
-  if (!selectedUser) {
-    return <NoConversationPlaceholder />;
-  }
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
   }, [getMessagesByUserId, selectedUser]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  if (!selectedUser) {
+    return <NoConversationPlaceholder />;
+  }
+
   return (
-    <div>
+    <div className="flex flex-col h-full">
       <ChatHeader />
       <div className="flex-1 px-6 overflow-y-auto py-8 ">
         {messages.length > 0 && !isMessagesLoading ? (
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto">
             {messages.map((msg) => (
               <div
                 className={`chat ${
@@ -48,19 +58,23 @@ function ChatContainer() {
                   )}
                   {msg.text && <p className="mt-2"> {msg.text} </p>}
                   <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
-                    {new Date(msg.createdAt).toLocaleTimeString([],{hour: "2-digit", minute: "2-digit"})}
+                    {new Date(msg.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </p>
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
         ) : isMessagesLoading ? (
-            <MessagesLoadingSkeleton/>
+          <MessagesLoadingSkeleton />
         ) : (
           <NoChatHistoryPlaceholder name={selectedUser.fullName} />
         )}
       </div>
-      <MessageInput/>
+      <MessageInput />
     </div>
   );
 }
