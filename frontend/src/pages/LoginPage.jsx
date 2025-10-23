@@ -5,16 +5,20 @@ import { MessageCircleIcon, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Loader } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";
+import { useChatStore } from "../store/useChatStore";
 
 function SignUpPage() {
   const { register, handleSubmit } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const{setSelectedUser} = useChatStore()
+
   const { isLoggingUp, login } = useAuthStore();
 
   function onLoggingUp(data) {
     login(data);
+    setSelectedUser(null)
   }
 
   return (
