@@ -8,7 +8,7 @@ import MessageInput from "./MessageInput.jsx";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton.jsx";
 
 function ChatContainer() {
-  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } =
+  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading,subscribeToMessages,unsubscribeFromMessages } =
     useChatStore();
   const { authUser } = useAuthStore();
   const messagesEndRef = useRef(null);
@@ -19,7 +19,10 @@ function ChatContainer() {
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
-  }, [getMessagesByUserId, selectedUser]);
+    subscribeToMessages()
+
+    return () => unsubscribeFromMessages()
+  }, [getMessagesByUserId, selectedUser,subscribeToMessages,unsubscribeFromMessages]);
 
   useEffect(() => {
     scrollToBottom();

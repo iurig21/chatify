@@ -48,7 +48,9 @@ export const useChatStore = create((set, get) => ({
       set({ chats: res.data });
     } catch (error) {
       console.error("Error fetching chats", error);
-      toast.error(error.response?.data?.message ?? "Error fetching chat partners");
+      toast.error(
+        error.response?.data?.message ?? "Error fetching chat partners"
+      );
     } finally {
       set({ isUsersLoading: false });
     }
@@ -73,7 +75,7 @@ export const useChatStore = create((set, get) => ({
     const { selectedUser, messages } = get();
     const { authUser } = useAuthStore.getState();
 
-    const tempId = `temp-${Date.now()}`
+    const tempId = `temp-${Date.now()}`;
 
     const optimisticMessage = {
       _id: tempId,
@@ -82,10 +84,10 @@ export const useChatStore = create((set, get) => ({
       text: messageData.text,
       image: messageData.image,
       createdAt: new Date().toISOString(),
-      isOptimistic: true
-    }
+      isOptimistic: true,
+    };
 
-    set({messages: [...messages,optimisticMessage]})
+    set({ messages: [...messages, optimisticMessage] });
 
     try {
       const res = await api.post(
@@ -96,9 +98,41 @@ export const useChatStore = create((set, get) => ({
       set({ messages: [...messages, res.data] });
     } catch (error) {
       //Remove optimisticMessage from the state on api call failure
-      set({messages: messages})
+      set({ messages: messages });
       console.error("Error sending message:", error);
       toast.error(error.response?.data?.message ?? "Error sending message");
     }
+  },
+
+  subscribeToMessages: () => {
+    const { selectedUser, isSoundEnabled } = get();
+
+    if (!selectedUser) return;
+
+    const { socket } = useAuthStore.getState();
+
+    socket.on("newMessage", (newMessage) => {
+
+      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
+
+      if(!isMessageSentFromSelectedUser) return
+
+      const currentMessages = get().messages;
+
+      set({ messages: [...currentMessages, newMessage] });
+      if (isSoundEnabled) {
+        const notificationSound = new Audio("/sounds/notification.mp3");
+
+        notificationSound.currentTime = 0;
+        notificationSound
+          .play()
+          .catch((e) => console.log("Audio play failed:", e));
+      }
+    });
+  },
+
+  unsubscribeFromMessages: () => {
+    const { socket } = useAuthStore.getState();
+    socket.off("newMessage");
   },
 }));

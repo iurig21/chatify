@@ -1,9 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import { env } from "process";
 import "dotenv/config";
-import { Socket } from "dgram";
 import { SocketAuthMiddleware } from "../middleware/SocketAuthMiddleware.js";
 
 const app = express();
@@ -17,6 +15,11 @@ const io = new Server(server, {
 });
 
 io.use(SocketAuthMiddleware);
+
+// Check if the user is online or not
+export function getReceiverSocketId(userID){
+  return userSocketMap[userID]
+}
 
 // Storing online users
 const userSocketMap = {};
