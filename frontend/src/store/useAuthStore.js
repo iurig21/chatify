@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { api } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
-import { disconnect } from "mongoose";
 
 const BASE_URL =
   import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
