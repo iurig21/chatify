@@ -131,11 +131,6 @@ cd backend && npm run dev
 cd frontend && npm run dev
 ```
 
-Production:
-```bash
-npm run start
-```
-
 ## Requirements
 
 - Node.js >= 18.17.0
