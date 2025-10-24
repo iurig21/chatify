@@ -8,8 +8,14 @@ import MessageInput from "./MessageInput.jsx";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton.jsx";
 
 function ChatContainer() {
-  const { selectedUser, getMessagesByUserId, messages, isMessagesLoading,subscribeToMessages,unsubscribeFromMessages } =
-    useChatStore();
+  const {
+    selectedUser,
+    getMessagesByUserId,
+    messages,
+    isMessagesLoading,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
   const { authUser } = useAuthStore();
   const messagesEndRef = useRef(null);
 
@@ -19,10 +25,15 @@ function ChatContainer() {
 
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
-    subscribeToMessages()
+    subscribeToMessages();
 
-    return () => unsubscribeFromMessages()
-  }, [getMessagesByUserId, selectedUser,subscribeToMessages,unsubscribeFromMessages]);
+    return () => unsubscribeFromMessages();
+  }, [
+    getMessagesByUserId,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  ]);
 
   useEffect(() => {
     scrollToBottom();
@@ -35,7 +46,7 @@ function ChatContainer() {
   return (
     <div className="flex flex-col h-full">
       <ChatHeader />
-      <div className="flex-1 px-6 overflow-y-auto py-8 ">
+      <div className="flex-1 px-4 md:px-6 overflow-y-auto py-6 md:py-8">
         {messages.length > 0 && !isMessagesLoading ? (
           <div className="max-w-3xl mx-auto">
             {messages.map((msg) => (
@@ -46,7 +57,7 @@ function ChatContainer() {
                 key={msg._id}
               >
                 <div
-                  className={`chat-bubble relative ${
+                  className={`chat-bubble relative max-w-[85%] md:max-w-none ${
                     msg.senderId === authUser._id
                       ? "bg-cyan-600 text-white"
                       : "bg-slate-800 text-slate-200"
@@ -59,7 +70,7 @@ function ChatContainer() {
                       className="rounded-lg h-48 object-cover"
                     />
                   )}
-                  {msg.text && <p className="mt-2"> {msg.text} </p>}
+                  {msg.text && <p className="mt-2 break-words">{msg.text}</p>}
                   <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
                     {new Date(msg.createdAt).toLocaleTimeString([], {
                       hour: "2-digit",
