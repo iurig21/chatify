@@ -133,7 +133,7 @@ cd frontend && npm run dev
 
 Production:
 ```bash
-npm start
+npm run start
 ```
 
 ## Requirements
