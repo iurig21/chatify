@@ -65,7 +65,7 @@ function SignUpPage() {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="cursor-pointer absolute left-102 top-1/2 -translate-y-1/2 text-slate-400 size-5"
+                        className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 size-5"
                       >
                         {!showPassword ? <Eye /> : <EyeOff />}
                       </button>

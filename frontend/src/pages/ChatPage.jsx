@@ -11,9 +11,9 @@ function ChatPage() {
   const { activeTab,selectedUser } = useChatStore();
 
   return (  
-    <div className="relative w-full max-w-5xl md:h-[675px] h-[650px]">
+    <div className="relative w-full max-w-5xl h-[600px] md:h-[675px]">
       <BorderAnimatedContainer>
-        <div className="w-80 bg-slate-800/50 backdrop-blur-sm space-y-3">
+        <div className={`${selectedUser ? 'hidden md:flex' : 'flex'} w-full md:w-80 bg-slate-800/50 backdrop-blur-sm flex-col`}>
           <ProfileHeader />
           <ActiveTabSwitch />
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
@@ -21,7 +21,7 @@ function ChatPage() {
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col bg-slate-900/50 backdrop-blur-sm ">
+        <div className={`${selectedUser ? 'flex' : 'hidden md:flex'} flex-1 flex-col bg-slate-900/50 backdrop-blur-sm`}>
             {selectedUser ? <ChatContainer/> : <NoChatPlaceholder/>}
         </div>
       </BorderAnimatedContainer>
