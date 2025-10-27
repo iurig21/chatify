@@ -95,10 +95,10 @@ export const useChatStore = create((set, get) => ({
         messageData
       );
 
-      set({ messages: [...messages, res.data] });
+      set({ messages: get().messages.map((msg) => msg._id === tempId ? res.data : msg ) });
     } catch (error) {
       //Remove optimisticMessage from the state on api call failure
-      set({ messages: messages });
+      set({ messages: get().messages.filter((msg) => msg._id != tempId )});
       console.error("Error sending message:", error);
       toast.error(error.response?.data?.message ?? "Error sending message");
     }
