@@ -8,8 +8,9 @@ A real-time chat application built with the MERN(MongoDB,Express.js,React and No
 
 - Real-time messaging
 - User authentication
+- Rate limiting
 - Image uploads
-- Modern UI
+- Modern and responsive UI
 
 ## Tech Stack
 
