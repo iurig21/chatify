@@ -14,7 +14,7 @@ A real-time chat application built with the MERN(MongoDB,Express.js,React and No
 
 ## Tech Stack
 
-**Frontend:** React,Zustand, Tailwind CSS , DaisyUI  
+**Frontend:** React , Zustand, Tailwind CSS , DaisyUI  
 **Backend:** Node.js, Express, MongoDB, Socket.IO
 
 ## API Documentation
